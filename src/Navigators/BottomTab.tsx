@@ -1,18 +1,21 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../Screens/Home";
-import Search from "../Screens/Search";
-import Scanner from "../Screens/Scanner";
-import Profile from "../Screens/Profile";
-import { View, Image } from "react-native";
-const Tabs = createBottomTabNavigator();
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import Home from "../Screens/Home"
+import Search from "../Screens/Search"
+import Scanner from "../Screens/Scanner"
+import Profile from "../Screens/Profile"
+import { View, Image } from "react-native"
+import HomeImage from "../Assets/Home/home.png"
+import SearchImage from "../Assets/Home/search.png"
+import SawsanImage from "../Assets/tempPic.jpg"
+const Tabs = createBottomTabNavigator()
 
-export default function Bottom_Tab() {
+export default function BottomTab() {
   return (
     <Tabs.Navigator
       initialRouteName="Home"
       screenOptions={{
         tabBarStyle: { backgroundColor: "#F29765", height: 55 },
-        tabBarShowLabel: false,
+        tabBarShowLabel: false
       }}
     >
       <Tabs.Screen
@@ -26,22 +29,16 @@ export default function Bottom_Tab() {
                 style={{
                   borderColor: "white",
                   borderBottomWidth: 2,
-                  padding: 4,
+                  padding: 4
                 }}
               >
-                <Image
-                  source={require("../assets/Home/home.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={HomeImage} style={{ width: 25, height: 25 }} />
               </View>
             ) : (
               <View>
-                <Image
-                  source={require("../assets/Home/home.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={HomeImage} style={{ width: 25, height: 25 }} />
               </View>
-            ),
+            )
         }}
       />
       <Tabs.Screen
@@ -55,22 +52,22 @@ export default function Bottom_Tab() {
                 style={{
                   borderColor: "white",
                   borderBottomWidth: 2,
-                  padding: 4,
+                  padding: 4
                 }}
               >
                 <Image
-                  source={require("../assets/Home/search.png")}
+                  source={require("../Assets/Home/search.png")}
                   style={{ width: 25, height: 25 }}
                 />
               </View>
             ) : (
               <View>
                 <Image
-                  source={require("../assets/Home/search.png")}
+                  source={require("../Assets/Home/search.png")}
                   style={{ width: 25, height: 25 }}
                 />
               </View>
-            ),
+            )
         }}
       />
       <Tabs.Screen
@@ -84,22 +81,16 @@ export default function Bottom_Tab() {
                 style={{
                   borderColor: "white",
                   borderBottomWidth: 2,
-                  padding: 4,
+                  padding: 4
                 }}
               >
-                <Image
-                  source={require("../assets/Home/scanner.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
               </View>
             ) : (
               <View>
-                <Image
-                  source={require("../assets/Home/scanner.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
               </View>
-            ),
+            )
         }}
       />
       <Tabs.Screen
@@ -113,24 +104,34 @@ export default function Bottom_Tab() {
                 style={{
                   borderColor: "white",
                   borderBottomWidth: 2,
-                  padding: 4,
+                  padding: 4
                 }}
               >
                 <Image
-                  source={require("../assets/tempPic.jpg")}
-                  style={{ width: 25, height: 25, borderRadius: 30, margin: 5 }}
+                  source={SawsanImage}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    borderRadius: 30,
+                    margin: 5
+                  }}
                 />
               </View>
             ) : (
               <View>
                 <Image
-                  source={require("../assets/tempPic.jpg")}
-                  style={{ width: 25, height: 25, borderRadius: 30, margin: 5 }}
+                  source={SawsanImage}
+                  style={{
+                    width: 25,
+                    height: 25,
+                    borderRadius: 30,
+                    margin: 5
+                  }}
                 />
               </View>
-            ),
+            )
         }}
       />
     </Tabs.Navigator>
-  );
+  )
 }

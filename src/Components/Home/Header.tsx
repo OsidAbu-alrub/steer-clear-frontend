@@ -1,23 +1,24 @@
-import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { MainRootStack } from "../../Navigators/Main"
 
 function Header() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<MainRootStack>>()
   return (
     <View style={styles.container}>
       <Text style={styles.appName}>SteerClear</Text>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("Create_Post");
+          navigation.navigate("CreatePost")
         }}
       >
         <Image
           style={styles.postIcon}
-          source={require("../../assets/Home/post.png")}
+          source={require("./../../Assets/Home/post.png")}
         />
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -26,20 +27,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "red",
     backgroundColor: "#F29765",
     paddingVertical: 16,
-    paddingHorizontal: 10,
+    paddingHorizontal: 10
   },
   appName: {
     color: "white",
     fontSize: 27,
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   postIcon: {
     width: 27,
-    height: 27,
-  },
-});
+    height: 27
+  }
+})
 
-export default Header;
+export default Header

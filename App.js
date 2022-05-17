@@ -1,18 +1,18 @@
-import Logging from "./Navigators/Logging";
+import Logging from "./src/Navigators/Login";
 import { NavigationContainer } from "@react-navigation/native";
-import Auth from "./Context/Auth";
+import Auth from "./src/Context/Auth";
 import { useState } from "react";
-import Main from "./Navigators/Main";
+import Main from "./src/Navigators/Main";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
-  const value = { isLogged, setIsLogged };
+	const [isLogged, setIsLogged] = useState(false);
+	const value = { isLogged, setIsLogged };
 
-  return (
-    <Auth.Provider value={value}>
-      <NavigationContainer>
-        {!isLogged ? <Logging /> : <Main />}
-      </NavigationContainer>
-    </Auth.Provider>
-  );
+	return (
+		<Auth.Provider value={value}>
+			<NavigationContainer>
+				<Main />
+			</NavigationContainer>
+		</Auth.Provider>
+	);
 }
