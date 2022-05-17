@@ -8,16 +8,20 @@ import {
   Text
 } from "react-native"
 import Header from "../Components/Home/Header"
-import Sawsan from "../Assets/General/tempPic.jpg"
+import PlaceholderImage from "../Assets/General/person-placeholder-image.jpeg"
+import { useAuth } from "../Context/Auth/useAuth"
 
 function Profile() {
+  const { user } = useAuth()
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.mainContent}>
-        <Image style={styles.profilePic} source={Sawsan} />
-        <Text style={styles.username}>Username</Text>
-        <Text style={styles.username}>bio</Text>
+        <Image style={styles.profilePic} source={PlaceholderImage} />
+        <Text
+          style={styles.username}
+        >{`${user?.firstName} ${user?.lastName}`}</Text>
+        <Text style={styles.username}>{user?.bio}</Text>
       </View>
     </SafeAreaView>
   )

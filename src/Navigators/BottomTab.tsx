@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { ComponentProps } from "react"
-import { Image, View } from "react-native"
+import { Image, StyleSheet, View } from "react-native"
 import SawsanImage from "../Assets/General/tempPic.jpg"
 import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
-import Home from "../Screens/Home"
+import ScannerImage from "../Assets/Scanner/outlier.png"
+import Home from "../Screens/Home/Home"
 import Profile from "../Screens/Profile"
 import Scanner from "../Screens/Scanner"
 import Search from "../Screens/Search"
@@ -29,22 +30,11 @@ export default function BottomTab() {
         component={Home}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) =>
-            focused == true ? (
-              <View
-                style={{
-                  borderColor: "white",
-                  borderBottomWidth: 2,
-                  padding: 4
-                }}
-              >
-                <Image source={HomeImage} style={{ width: 25, height: 25 }} />
-              </View>
-            ) : (
-              <View>
-                <Image source={HomeImage} style={{ width: 25, height: 25 }} />
-              </View>
-            )
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.focused : undefined}>
+              <Image source={HomeImage} style={{ width: 25, height: 25 }} />
+            </View>
+          )
         }}
       />
       <Tabs.Screen
@@ -52,22 +42,11 @@ export default function BottomTab() {
         component={Search}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) =>
-            focused == true ? (
-              <View
-                style={{
-                  borderColor: "white",
-                  borderBottomWidth: 2,
-                  padding: 4
-                }}
-              >
-                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
-              </View>
-            ) : (
-              <View>
-                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
-              </View>
-            )
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.focused : undefined}>
+              <Image source={SearchImage} style={{ width: 25, height: 25 }} />
+            </View>
+          )
         }}
       />
       <Tabs.Screen
@@ -75,22 +54,11 @@ export default function BottomTab() {
         component={Scanner}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) =>
-            focused == true ? (
-              <View
-                style={{
-                  borderColor: "white",
-                  borderBottomWidth: 2,
-                  padding: 4
-                }}
-              >
-                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
-              </View>
-            ) : (
-              <View>
-                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
-              </View>
-            )
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.focused : undefined}>
+              <Image source={ScannerImage} style={{ width: 25, height: 25 }} />
+            </View>
+          )
         }}
       />
       <Tabs.Screen
@@ -98,40 +66,29 @@ export default function BottomTab() {
         component={Profile}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) =>
-            focused == true ? (
-              <View
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.focused : undefined}>
+              <Image
+                source={SawsanImage}
                 style={{
-                  borderColor: "white",
-                  borderBottomWidth: 2,
-                  padding: 4
+                  width: 25,
+                  height: 25,
+                  borderRadius: 30,
+                  margin: 5
                 }}
-              >
-                <Image
-                  source={SawsanImage}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    borderRadius: 30,
-                    margin: 5
-                  }}
-                />
-              </View>
-            ) : (
-              <View>
-                <Image
-                  source={SawsanImage}
-                  style={{
-                    width: 25,
-                    height: 25,
-                    borderRadius: 30,
-                    margin: 5
-                  }}
-                />
-              </View>
-            )
+              />
+            </View>
+          )
         }}
       />
     </TabsNavigator>
   )
 }
+
+const styles = StyleSheet.create({
+  focused: {
+    borderColor: "white",
+    borderBottomWidth: 2,
+    padding: 4
+  }
+})

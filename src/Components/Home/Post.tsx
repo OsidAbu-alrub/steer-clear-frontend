@@ -1,50 +1,50 @@
 import { AntDesign, FontAwesome } from "@expo/vector-icons"
-import { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { PostContent } from "../../Screens/Home"
-import TempPic from "./../../Assets/General/tempPic.jpg"
+import { PostContent } from "../../Screens/Home/api"
+import PlaceholderImage from "./../../Assets/General/person-placeholder-image.jpeg"
 
 interface Props {
   postContent: PostContent
 }
 
 const Post: FC<Props> = ({ postContent }) => {
-  const [isLiked, setIsLiked] = useState(postContent.isLiked)
-  const [numberOfLikes, setNumberOfLikes] = useState<number>(postContent.likes)
+  // const [isLiked, setIsLiked] = useState(postContent.isLiked)
+  // const [numberOfLikes, setNumberOfLikes] = useState<number>(postContent.likes)
 
-  useEffect(() => {
-    setNumberOfLikes((numberOfLikes) =>
-      isLiked ? numberOfLikes + 1 : numberOfLikes - 1
-    )
-  }, [isLiked])
+  // useEffect(() => {
+  //   setNumberOfLikes((numberOfLikes) =>
+  //     isLiked ? numberOfLikes + 1 : numberOfLikes - 1
+  //   )
+  // }, [isLiked])
 
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
         <View style={styles.postUser}>
-          <Image style={styles.topPic} source={TempPic} />
-          <Text>Sawsan Hawwash</Text>
+          <Image style={styles.topPic} source={PlaceholderImage} />
+          <Text>{`${postContent.user.firstName} ${postContent.user.lastName}`}</Text>
         </View>
         <Text style={{ marginRight: 20 }}>...</Text>
       </View>
       <View style={styles.middleSection}>
-        <Text style={styles.content}>{postContent.content}</Text>
+        <Text style={styles.content}>{postContent.body}</Text>
       </View>
       <View style={styles.bottomSection}>
         <View>
-          <Text>{numberOfLikes} Likes</Text>
+          <Text>{13} Likes</Text>
         </View>
         <View style={styles.right}>
           <TouchableOpacity
-            onPress={() => {
-              setIsLiked((isLiked) => !isLiked)
-            }}
+          // onPress={() => {
+          //   setIsLiked((isLiked) => !isLiked)
+          // }}
           >
             <AntDesign
               name="heart"
               style={styles.like}
               size={24}
-              color={isLiked ? "red" : "grey"}
+              // color={isLiked ? "red" : "grey"}
             />
           </TouchableOpacity>
           <FontAwesome name="comment" size={24} color="grey" />
@@ -56,16 +56,20 @@ const Post: FC<Props> = ({ postContent }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 50,
+    marginBottom: 10,
+    marginTop: 25,
     backgroundColor: "white",
-    borderRadius: 20
+    borderRadius: 20,
+    marginRight: 15,
+    marginLeft: 15
   },
   topSection: {
     justifyContent: "space-between",
     flexDirection: "row",
     borderBottomWidth: 1,
     borderColor: "#DCD8D5",
-    alignItems: "center"
+    alignItems: "center",
+    padding: 10
   },
   postUser: {
     flexDirection: "row",
@@ -78,10 +82,10 @@ const styles = StyleSheet.create({
     margin: 5
   },
   middleSection: {
-    marginVertical: 15
+    marginVertical: 10,
+    marginHorizontal: 15
   },
   content: {
-    marginTop: 10,
     lineHeight: 20,
     paddingHorizontal: 5
   },
@@ -90,8 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderTopWidth: 1,
     borderColor: "#DCD8D5",
-    paddingVertical: 10,
-    paddingHorizontal: 13
+    padding: 15
   },
   right: {
     flexDirection: "row"

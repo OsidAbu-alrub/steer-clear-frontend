@@ -1,22 +1,23 @@
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  Image
-} from "react-native"
-import Auth from "../Context/Auth"
-import { useContext, useState } from "react"
-import { LoginRootStack } from "../Navigators/Login"
 import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { useState } from "react"
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native"
 import Logo from "../Assets/Login/logo.jpeg"
+import { Credentials } from "../Context/Auth//Auth"
+import { useAuth } from "../Context/Auth/useAuth"
+import { LoginRootStack } from "../Navigators/Login"
 
 export default function Login() {
   const navigation = useNavigation<NavigationProp<LoginRootStack>>()
-  const { setIsLoggedIn } = useContext(Auth)
-  const [, setUsername] = useState("")
-  const [, setPassword] = useState("")
+  const { login } = useAuth()
+  const [email, setEmail] = useState<Credentials["email"]>("")
+  const [password, setPassword] = useState<Credentials["password"]>("")
 
   return (
     <View style={styles.container}>
@@ -25,8 +26,8 @@ export default function Login() {
         <View>
           <TextInput
             style={styles.username}
-            onChangeText={(text) => setUsername(text)}
-            placeholder="Username"
+            onChangeText={(text) => setEmail(text)}
+            placeholder="Email"
           />
           <TextInput
             style={styles.password}
@@ -35,7 +36,10 @@ export default function Login() {
             onChangeText={(text) => setPassword(text)}
           />
 
-          <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={async () => await login({ email, password })}
+          >
             <Text style={{ color: "white" }}>Login</Text>
           </TouchableOpacity>
         </View>
@@ -53,10 +57,6 @@ export default function Login() {
       </View>
     </View>
   )
-
-  function loginHandler() {
-    setIsLoggedIn(true)
-  }
 }
 
 const styles = StyleSheet.create({

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F29765",
     paddingVertical: 16,
-    paddingHorizontal: 10
+    paddingHorizontal: 15
   },
   appName: {
     color: "white",

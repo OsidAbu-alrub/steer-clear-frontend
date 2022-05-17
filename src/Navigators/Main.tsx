@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import BottomTab from "./BottomTab"
-import CreatePost from "../Screens/CreatePost"
 import AddProduct from "../Screens/AddProduct"
-import { ComponentProps } from "react"
+import CreatePost from "../Screens/CreatePost"
+import BottomTab from "./BottomTab"
 
 export type MainRootStack = {
   BottomTab: undefined
@@ -13,11 +12,8 @@ export type MainRootStack = {
 const Stack = createNativeStackNavigator<MainRootStack>()
 
 export default function Main() {
-  const StackNavigator = Stack.Navigator as (
-    props: ComponentProps<typeof Stack.Navigator>
-  ) => JSX.Element
   return (
-    <StackNavigator initialRouteName="BottomTab">
+    <Stack.Navigator initialRouteName="BottomTab">
       <Stack.Screen
         name="BottomTab"
         component={BottomTab}
@@ -33,6 +29,6 @@ export default function Main() {
         component={AddProduct}
         options={{ headerShown: false }}
       />
-    </StackNavigator>
+    </Stack.Navigator>
   )
 }

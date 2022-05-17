@@ -1,5 +1,4 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { ComponentProps } from "react"
 import LoginComponent from "../Screens/Login"
 import Register from "../Screens/Register"
 
@@ -11,11 +10,8 @@ export type LoginRootStack = {
 const Stack = createNativeStackNavigator<LoginRootStack>()
 
 export default function Login() {
-  const StackNavigator = Stack.Navigator as (
-    props: ComponentProps<typeof Stack.Navigator>
-  ) => JSX.Element
   return (
-    <StackNavigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Login">
       <>
         <Stack.Screen
           name="Login"
@@ -28,6 +24,6 @@ export default function Login() {
           options={{ headerShown: false }}
         />
       </>
-    </StackNavigator>
+    </Stack.Navigator>
   )
 }
