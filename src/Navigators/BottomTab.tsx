@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { ComponentProps } from "react"
 import { Image, StyleSheet, View } from "react-native"
-import SawsanImage from "../Assets/General/tempPic.jpg"
 import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
 import ScannerImage from "../Assets/Scanner/outlier.png"
@@ -9,6 +8,7 @@ import Home from "../Screens/Home/Home"
 import Profile from "../Screens/Profile"
 import Scanner from "../Screens/Scanner"
 import Search from "../Screens/Search"
+import PlaceholderImage from "./../Assets/General/person-placeholder-image.jpeg"
 
 const Tabs = createBottomTabNavigator()
 
@@ -69,7 +69,7 @@ export default function BottomTab() {
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
               <Image
-                source={SawsanImage}
+                source={PlaceholderImage}
                 style={{
                   width: 25,
                   height: 25,
