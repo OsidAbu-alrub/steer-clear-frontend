@@ -10,6 +10,7 @@ import Auth from "../Context/Auth"
 import { useContext, useState } from "react"
 import { LoginRootStack } from "../Navigators/Login"
 import { NavigationProp, useNavigation } from "@react-navigation/native"
+import Logo from "../Assets/Login/logo.jpeg"
 
 export default function Login() {
   const navigation = useNavigation<NavigationProp<LoginRootStack>>()
@@ -19,10 +20,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.logo}
-        source={require("../Assets/Login/logo.jpeg")}
-      />
+      <Image style={styles.logo} source={Logo} />
       <View style={styles.formContainer}>
         <View>
           <TextInput

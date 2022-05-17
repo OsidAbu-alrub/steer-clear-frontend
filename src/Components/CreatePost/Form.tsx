@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native"
-
+import SawsanImage from "./../../Assets/General/tempPic.jpg"
 export default function Form() {
   const [input, setInput] = useState<string>("")
 
@@ -15,10 +15,7 @@ export default function Form() {
     <View style={styles.container}>
       <View style={styles.topSection}>
         <View style={styles.postUser}>
-          <Image
-            style={styles.topPic}
-            source={require("./../../Assets/tempPic.jpg")}
-          />
+          <Image style={styles.topPic} source={SawsanImage} />
           <Text>Sawsan Hawwash</Text>
         </View>
         <TouchableOpacity onPress={handleAddPost}>

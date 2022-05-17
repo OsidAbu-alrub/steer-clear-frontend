@@ -1,6 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { MainRootStack } from "../../Navigators/Main"
+import PostImage from "./../../Assets/Home/post.png"
 
 function Header() {
   const navigation = useNavigation<NavigationProp<MainRootStack>>()
@@ -12,10 +13,7 @@ function Header() {
           navigation.navigate("CreatePost")
         }}
       >
-        <Image
-          style={styles.postIcon}
-          source={require("./../../Assets/Home/post.png")}
-        />
+        <Image style={styles.postIcon} source={PostImage} />
       </TouchableOpacity>
     </View>
   )

@@ -10,6 +10,7 @@ import {
 } from "react-native"
 import { BarCodeScanner } from "expo-barcode-scanner"
 import Header from "../Components/Home/Header"
+import Outlier from "../Assets/Scanner/outlier.png"
 
 interface Product {
   name: string
@@ -57,10 +58,7 @@ function Scanner() {
             isProductFound={isProductFound}
           />
         ) : (
-          <Image
-            style={styles.outlier}
-            source={require("../Assets/Scanner/outlier.png")}
-          />
+          <Image style={styles.outlier} source={Outlier} />
         )}
       </View>
     </SafeAreaView>

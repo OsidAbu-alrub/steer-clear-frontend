@@ -1,6 +1,7 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { MainRootStack } from "../../Navigators/Main"
+import BankImage from "./../../Assets/CreatePost/back.png"
 
 function Header() {
   const navigation = useNavigation<NavigationProp<MainRootStack>>()
@@ -13,10 +14,7 @@ function Header() {
           navigation.navigate("BottomTab")
         }}
       >
-        <Image
-          style={styles.postIcon}
-          source={require("./../../Assets/CreatePost/back.png")}
-        />
+        <Image style={styles.postIcon} source={BankImage} />
       </TouchableOpacity>
     </View>
   )

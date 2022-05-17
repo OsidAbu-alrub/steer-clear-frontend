@@ -8,16 +8,14 @@ import {
   Text
 } from "react-native"
 import Header from "../Components/Home/Header"
+import Sawsan from "../Assets/General/tempPic.jpg"
 
 function Profile() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.mainContent}>
-        <Image
-          style={styles.profilePic}
-          source={require("../Assets/tempPic.jpg")}
-        />
+        <Image style={styles.profilePic} source={Sawsan} />
         <Text style={styles.username}>Username</Text>
         <Text style={styles.username}>bio</Text>
       </View>

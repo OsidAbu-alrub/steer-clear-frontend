@@ -1,17 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Home from "../Screens/Home"
-import Search from "../Screens/Search"
-import Scanner from "../Screens/Scanner"
-import Profile from "../Screens/Profile"
-import { View, Image } from "react-native"
+import { ComponentProps } from "react"
+import { Image, View } from "react-native"
+import SawsanImage from "../Assets/General/tempPic.jpg"
 import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
-import SawsanImage from "../Assets/tempPic.jpg"
+import Home from "../Screens/Home"
+import Profile from "../Screens/Profile"
+import Scanner from "../Screens/Scanner"
+import Search from "../Screens/Search"
+
 const Tabs = createBottomTabNavigator()
 
 export default function BottomTab() {
+  // must have to fix type error
+  const TabsNavigator = Tabs.Navigator as (
+    props: ComponentProps<typeof Tabs.Navigator>
+  ) => JSX.Element
   return (
-    <Tabs.Navigator
+    <TabsNavigator
       initialRouteName="Home"
       screenOptions={{
         tabBarStyle: { backgroundColor: "#F29765", height: 55 },
@@ -55,17 +61,11 @@ export default function BottomTab() {
                   padding: 4
                 }}
               >
-                <Image
-                  source={require("../Assets/Home/search.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
               </View>
             ) : (
               <View>
-                <Image
-                  source={require("../Assets/Home/search.png")}
-                  style={{ width: 25, height: 25 }}
-                />
+                <Image source={SearchImage} style={{ width: 25, height: 25 }} />
               </View>
             )
         }}
@@ -132,6 +132,6 @@ export default function BottomTab() {
             )
         }}
       />
-    </Tabs.Navigator>
+    </TabsNavigator>
   )
 }
