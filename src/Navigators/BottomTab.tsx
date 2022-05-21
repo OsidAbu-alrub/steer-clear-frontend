@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { ComponentProps } from "react"
 import { Image, StyleSheet, View } from "react-native"
 import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
@@ -13,12 +12,8 @@ import PlaceholderImage from "./../Assets/General/person-placeholder-image.jpeg"
 const Tabs = createBottomTabNavigator()
 
 export default function BottomTab() {
-  // must have to fix type error
-  const TabsNavigator = Tabs.Navigator as (
-    props: ComponentProps<typeof Tabs.Navigator>
-  ) => JSX.Element
   return (
-    <TabsNavigator
+    <Tabs.Navigator
       initialRouteName="Home"
       screenOptions={{
         tabBarStyle: { backgroundColor: "#F29765", height: 55 },
@@ -81,7 +76,7 @@ export default function BottomTab() {
           )
         }}
       />
-    </TabsNavigator>
+    </Tabs.Navigator>
   )
 }
 
