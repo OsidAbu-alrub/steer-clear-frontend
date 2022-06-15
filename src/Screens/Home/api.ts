@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import axiosInstance from "../../axios"
+import request from "../../axios"
 import { useAuth } from "../../Context/Auth/useAuth"
 
 const POSTS_FEED = `post/feed`
@@ -26,9 +26,10 @@ export interface PostContent {
 export const useFeed = () => {
   const { user } = useAuth()
   const { data: posts, isLoading } = useQuery("fetchPosts", async () => {
-    const res = await axiosInstance.get(`${POSTS_FEED}?userId=${user.id}`)
+    const res = await request.get(`${POSTS_FEED}?userId=${user.id}`)
     const posts = res.data.data as PostContent[]
     return posts
   })
+
   return { posts, isLoading }
 }

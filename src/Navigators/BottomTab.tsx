@@ -4,9 +4,9 @@ import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
 import ScannerImage from "../Assets/Scanner/outlier.png"
 import Home from "../Screens/Home/Home"
-import Profile from "../Screens/Profile"
-import Scanner from "../Screens/Scanner"
-import Search from "../Screens/Search"
+import Profile from "../Screens/Profile/Profile"
+import Scanner from "../Screens/BarcodeScanner/Scanner"
+import Search from "../Screens/Filter/Filter"
 import PlaceholderImage from "./../Assets/General/person-placeholder-image.jpeg"
 
 const Tabs = createBottomTabNavigator()

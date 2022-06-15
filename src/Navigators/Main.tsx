@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import AddProduct from "../Screens/AddProduct"
-import CreatePost from "../Screens/CreatePost"
+import AddProduct from "../Screens/AddProduct/AddProduct"
+import CreatePost from "../Screens/CreatePost/CreatePost"
 import BottomTab from "./BottomTab"
 
 export type MainRootStack = {

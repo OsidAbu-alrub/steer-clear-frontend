@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import LoginComponent from "../Screens/Login"
-import Register from "../Screens/Register"
+import LoginComponent from "../Screens/Login/Login"
+import Register from "../Screens/Register/Register"
 
 export type LoginRootStack = {
   Login: undefined

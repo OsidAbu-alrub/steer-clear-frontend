@@ -32,28 +32,3 @@ const styles = StyleSheet.create({
 })
 
 export default Home
-
-// const feedPosts: PostContent[] = [
-//   {
-//     id: "1",
-//     content: `hey, this is my first post!!! \ni want to talk about blah blah because blah blah blah !!!\nthanks!
-//     `,
-//     likes: 10,
-//     isLiked: true,
-//     userPic: ""
-//   },
-//   {
-//     id: "2",
-//     content: "kkk",
-//     likes: 20,
-//     isLiked: false,
-//     userPic: ""
-//   },
-//   {
-//     id: "3",
-//     content: "sss",
-//     likes: 30,
-//     isLiked: false,
-//     userPic: ""
-//   }
-// ]

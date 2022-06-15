@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react"
-import Login from "../../Screens/Login"
+import Login from "../../Screens/Login/Login"
 import { useAuth } from "./useAuth"
 
 const Validator = ({ children }: { children: ReactNode }) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import ProductInfo from "../Components/Scanner/ProductInfo"
+import ProductInfo from "../../Components/Scanner/ProductInfo"
 import {
   Text,
   View,
@@ -9,7 +9,7 @@ import {
   Image
 } from "react-native"
 import { BarCodeScanner } from "expo-barcode-scanner"
-import Header from "../Components/Home/Header"
+import Header from "../../Components/Home/Header"
 import Outlier from "../Assets/Scanner/outlier.png"
 
 interface Product {
