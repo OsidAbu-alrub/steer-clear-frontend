@@ -8,6 +8,7 @@ export interface User {
   email: string
   password: string
   bio: string
+  image: string
 }
 
 export type Credentials = Pick<User, "email" | "password">
@@ -26,7 +27,8 @@ export default createContext<AuthContextType>({
     id: "",
     lastName: "",
     password: "",
-    phoneNumber: ""
+    phoneNumber: "",
+    image: ""
   },
   login: () => Promise.resolve(),
   logout: () => Promise.resolve()

@@ -9,8 +9,8 @@ import {
   Image
 } from "react-native"
 import { BarCodeScanner } from "expo-barcode-scanner"
-import Header from "../../Components/Home/Header"
-import Outlier from "../Assets/Scanner/outlier.png"
+import Header from "../Home/components/Header/Header"
+import Outlier from "../../Assets/Scanner/outlier.png"
 
 interface Product {
   name: string

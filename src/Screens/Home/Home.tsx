@@ -1,11 +1,12 @@
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from "react-native"
-import Header from "../../Components/Home/Header"
-import Post from "../../Components/Home/Post"
-import { useFeed, PostContent } from "./api"
+import { FlatList, SafeAreaView } from "react-native"
+import { PostContent, useFeed } from "./api"
+import Header from "./components/Header/Header"
+import Post from "./components/Post/Post"
+import styles from "./styles"
 
 function Home() {
-  const { posts, isLoading } = useFeed()
-  return !isLoading && posts ? (
+  const { posts } = useFeed()
+  return posts ? (
     <SafeAreaView style={styles.container}>
       <Header />
       <FlatList<PostContent>
@@ -19,16 +20,5 @@ function Home() {
     <></>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-    backgroundColor: "#FDE8DB"
-  },
-  flatList: {
-    padding: 5
-  }
-})
 
 export default Home

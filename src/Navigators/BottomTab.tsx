@@ -1,22 +1,29 @@
+import { AntDesign } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Image, StyleSheet, View } from "react-native"
 import HomeImage from "../Assets/Home/home.png"
 import SearchImage from "../Assets/Home/search.png"
 import ScannerImage from "../Assets/Scanner/outlier.png"
-import Home from "../Screens/Home/Home"
-import Profile from "../Screens/Profile/Profile"
+import { useAuth } from "../Context/Auth/useAuth"
 import Scanner from "../Screens/BarcodeScanner/Scanner"
 import Search from "../Screens/Filter/Filter"
-import PlaceholderImage from "./../Assets/General/person-placeholder-image.jpeg"
+import Home from "../Screens/Home/Home"
+import Profile from "../Screens/Profile/Profile"
+import theme from "../utils/theme"
 
 const Tabs = createBottomTabNavigator()
 
 export default function BottomTab() {
+  const { user } = useAuth()
   return (
     <Tabs.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#F29765", height: 55 },
+        tabBarStyle: {
+          backgroundColor: theme.color.main,
+          height: 60,
+          padding: 20
+        },
         tabBarShowLabel: false
       }}
     >
@@ -27,7 +34,7 @@ export default function BottomTab() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
-              <Image source={HomeImage} style={{ width: 25, height: 25 }} />
+              <Image source={HomeImage} style={styles.icon} />
             </View>
           )
         }}
@@ -39,7 +46,7 @@ export default function BottomTab() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
-              <Image source={SearchImage} style={{ width: 25, height: 25 }} />
+              <Image source={SearchImage} style={styles.icon} />
             </View>
           )
         }}
@@ -51,7 +58,24 @@ export default function BottomTab() {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
-              <Image source={ScannerImage} style={{ width: 25, height: 25 }} />
+              <Image source={ScannerImage} style={styles.icon} />
+            </View>
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="Notifications"
+        component={Search}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={focused ? styles.focused : undefined}>
+              <AntDesign
+                name="bells"
+                style={styles.icon}
+                color="white"
+                size={25}
+              />
             </View>
           )
         }}
@@ -64,7 +88,9 @@ export default function BottomTab() {
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
               <Image
-                source={PlaceholderImage}
+                source={{
+                  uri: user.image
+                }}
                 style={{
                   width: 25,
                   height: 25,
@@ -82,8 +108,9 @@ export default function BottomTab() {
 
 const styles = StyleSheet.create({
   focused: {
-    borderColor: "white",
+    borderColor: theme.color.secondary,
     borderBottomWidth: 2,
     padding: 4
-  }
+  },
+  icon: { width: 25, height: 25 }
 })

@@ -4,7 +4,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { Credentials } from "../../Context/Auth/Auth"
 import { useAuth } from "../../Context/Auth/useAuth"
 import { LoginRootStack } from "../../Navigators/Login"
-import Logo from "../Assets/Login/logo.jpeg"
+import Logo from "../../Assets/Login/logo.jpeg"
 import styles from "./styles"
 
 export default function Login() {
@@ -44,7 +44,7 @@ export default function Login() {
               style={styles.registerLink}
               onPress={() => navigation.navigate("Register")}
             >
-              Sign up now
+              Register now!
             </Text>
           </TouchableOpacity>
         </View>

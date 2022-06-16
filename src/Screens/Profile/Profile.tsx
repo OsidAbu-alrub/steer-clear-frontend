@@ -1,7 +1,6 @@
-import { Image, SafeAreaView, Text, View } from "react-native"
-import Header from "../../Components/Home/Header"
+import { ImageBackground, SafeAreaView, Text, View } from "react-native"
 import { useAuth } from "../../Context/Auth/useAuth"
-import PlaceholderImage from "../Assets/General/person-placeholder-image.jpeg"
+import Header from "../Home/components/Header/Header"
 import styles from "./styles"
 
 function Profile() {
@@ -10,7 +9,12 @@ function Profile() {
     <SafeAreaView style={styles.container}>
       <Header />
       <View style={styles.mainContent}>
-        <Image style={styles.profilePic} source={PlaceholderImage} />
+        <ImageBackground
+          style={styles.profilePic}
+          source={{
+            uri: user.image
+          }}
+        />
         <Text
           style={styles.username}
         >{`${user?.firstName} ${user?.lastName}`}</Text>

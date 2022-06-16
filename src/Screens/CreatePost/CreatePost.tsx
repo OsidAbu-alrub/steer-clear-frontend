@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native"
-import Form from "../../Components/CreatePost/Form"
-import Header from "../../Components/CreatePost/Header"
+import Form from "./Components/Form/Form"
+import Header from "./Components/Header/Header"
 import styles from "./styles"
 
 export default function CreatePost() {
