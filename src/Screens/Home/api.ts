@@ -37,6 +37,11 @@ export interface PostContent {
   likes: Like[]
 }
 
+export interface CommentContent {
+  id: string
+  body: string
+}
+
 export const useFeed = () => {
   const { user } = useAuth()
   const { data: posts } = useQuery("fetchPosts", async () => {

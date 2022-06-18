@@ -4,9 +4,9 @@ import { useAuth } from "./useAuth"
 
 const Validator = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth()
-  if (!user) {
-    return <Login />
-  }
+  // if (!user) {
+  //   return <Login />
+  // }
   return <>{children}</>
 }
 

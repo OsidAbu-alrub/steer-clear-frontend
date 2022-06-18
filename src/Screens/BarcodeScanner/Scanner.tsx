@@ -121,5 +121,10 @@ const products: Product[] = [
     barcode: "7290016006162",
     name: "Schweppes",
     isIsraeli: false
+  },
+  {
+    barcode: "6253504270538",
+    name: "Hype",
+    isIsraeli: false
   }
 ]

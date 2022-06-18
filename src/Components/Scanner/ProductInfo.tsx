@@ -25,7 +25,7 @@ export default function ProductInfo({
       {isProductFound ? (
         <Found setIsScanned={setIsScanned} productInfo={productInfo} />
       ) : (
-        <NotFound setIsScanned={setIsScanned} />
+        <NotFound setIsScanned={setIsScanned} productInfo={productInfo} />
       )}
     </View>
   )

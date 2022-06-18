@@ -16,9 +16,19 @@ const styles = StyleSheet.create({
     fontSize: 27,
     fontWeight: "bold"
   },
+  iconContainer:{
+    display:"flex",
+    flexDirection:"row-reverse",
+  },
   postIcon: {
     width: 27,
-    height: 27
+    height: 27,
+    
+  },
+  searchIcon:{
+    width: 27,
+    height: 27,
+    marginRight:20
   }
 })
 

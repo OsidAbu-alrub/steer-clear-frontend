@@ -2,9 +2,12 @@ import { ImageBackground, SafeAreaView, Text, View } from "react-native"
 import { useAuth } from "../../Context/Auth/useAuth"
 import Header from "../Home/components/Header/Header"
 import styles from "./styles"
+import { useRoute } from "@react-navigation/native"
 
-function Profile() {
+
+const Profile =({}) => {
   const { user } = useAuth()
+  const  test  =useRoute<any>().params;
   return (
     <SafeAreaView style={styles.container}>
       <Header />
@@ -17,7 +20,7 @@ function Profile() {
         />
         <Text
           style={styles.username}
-        >{`${user?.firstName} ${user?.lastName}`}</Text>
+        >{`${test.id} ${user?.lastName}`}</Text>
         <Text style={styles.username}>{user?.bio}</Text>
       </View>
     </SafeAreaView>

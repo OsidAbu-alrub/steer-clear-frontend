@@ -1,5 +1,5 @@
 import { View, StyleSheet, Image, TextInput } from "react-native"
-import Search from "./../../Assets/Search/search.png"
+import Search from "./../../Assets/Search/searchBlack.png"
 
 function Header() {
   return (

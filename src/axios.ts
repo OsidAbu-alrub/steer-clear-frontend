@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const BACKEND_IP = "192.168.1.64"
+export const BACKEND_IP = "192.168.1.112"
 
 export const GLOBAL_URL_PREFIX = `http://${BACKEND_IP}:9000/api/v1/`
 

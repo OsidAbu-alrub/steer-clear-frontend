@@ -2,7 +2,6 @@ import { AntDesign } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Image, StyleSheet, View } from "react-native"
 import HomeImage from "../Assets/Home/home.png"
-import SearchImage from "../Assets/Home/search.png"
 import ScannerImage from "../Assets/Scanner/outlier.png"
 import { useAuth } from "../Context/Auth/useAuth"
 import Scanner from "../Screens/BarcodeScanner/Scanner"
@@ -35,18 +34,6 @@ export default function BottomTab() {
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.focused : undefined}>
               <Image source={HomeImage} style={styles.icon} />
-            </View>
-          )
-        }}
-      />
-      <Tabs.Screen
-        name="Search"
-        component={Search}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <View style={focused ? styles.focused : undefined}>
-              <Image source={SearchImage} style={styles.icon} />
             </View>
           )
         }}
