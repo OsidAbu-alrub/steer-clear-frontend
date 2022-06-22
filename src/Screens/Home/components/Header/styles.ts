@@ -9,26 +9,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: theme.color.main,
     paddingVertical: 16,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    paddingTop: 40
   },
   appName: {
     color: theme.text.main,
     fontSize: 27,
     fontWeight: "bold"
   },
-  iconContainer:{
-    display:"flex",
-    flexDirection:"row-reverse",
+  iconContainer: {
+    display: "flex",
+    flexDirection: "row-reverse"
   },
   postIcon: {
     width: 27,
-    height: 27,
-    
+    height: 27
   },
-  searchIcon:{
+  searchIcon: {
     width: 27,
     height: 27,
-    marginRight:20
+    marginRight: 20
   }
 })
 
