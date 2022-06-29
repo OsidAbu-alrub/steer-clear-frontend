@@ -1,34 +1,42 @@
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons"
+import { AntDesign, Ionicons } from "@expo/vector-icons"
+import { useRoute } from "@react-navigation/native"
 import { FC } from "react"
-import { Image, RefreshControl, StyleSheet, Text, View } from "react-native"
-import { ActivityIndicator, Divider } from "react-native-paper"
+import {
+	Image,
+	RefreshControl,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View
+} from "react-native"
+import { Divider } from "react-native-paper"
 import AppHeader from "../../Components/AppHeader/AppHeader"
 import CustomIconButton from "../../Components/CustomIconButton/CustomIconButton"
 import CustomScrollView from "../../Components/CustomScrollView/CustomScrollView"
 import Loader from "../../Components/Loader/Loader"
 import Post from "../../Components/Post/Post"
+import { User } from "../../Context/Auth/Auth"
 import { useAuth } from "../../Context/Auth/useAuth"
-import { useImagePicker } from "../../Hooks/useImagePicker"
+import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import { useRefetchOnFocus } from "../../Hooks/useRefetchOnFocus"
 import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
+import { showSnackbar } from "../../utils/showSnackbar"
 import theme from "../../utils/theme"
 import { useUserPosts } from "./api"
 
 interface Props {}
 
-const Profile: FC<Props> = () => {
-	const { user, logout, refetchUser } = useAuth()
-	const { uploadImage, isUploading } = useImagePicker({
-		userId: user.id,
-		uploadUrl: "user/upload-image"
-	})
-	const { userPosts, isFetchingPosts, refetchUserPosts } = useUserPosts(user.id)
+const PostProfile: FC<Props> = () => {
+	const { user } = useAuth()
+	const { goBack } = useAppNavigation()
+	const { params } = useRoute()
+	const currentUser = params as User
+	const { userPosts, isFetchingPosts, refetchUserPosts } = useUserPosts(
+		currentUser.id
+	)
 	const isRefetching = useRefetchOnFocus(refetchUserPosts)
-	const [isRefreshing, handleRefresh] = useRefresh(async () => {
-		await refetchUser()
-		await refetchUserPosts()
-	})
+	const [isRefreshing, handleRefresh] = useRefresh(refetchUserPosts)
 	const doesUserHavePosts = userPosts && userPosts.length > 0
 
 	if (isFetchingPosts || isRefetching)
@@ -49,7 +57,19 @@ const Profile: FC<Props> = () => {
 
 	return (
 		<>
-			<AppHeader />
+			<AppHeader
+				actions={() => [
+					{
+						action: (
+							<TouchableOpacity onPress={goBack}>
+								<AntDesign name="back" color="white" size={30} />
+							</TouchableOpacity>
+						),
+						id: "Back"
+					}
+				]}
+				reverseTitleAndActions
+			/>
 			<CustomScrollView
 				refreshControl={
 					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
@@ -62,11 +82,7 @@ const Profile: FC<Props> = () => {
 								position: "relative"
 							}}
 						>
-							{!isUploading ? (
-								<Image style={styles.profilePic} source={user.image} />
-							) : (
-								<ActivityIndicator style={styles.profilePic} color="black" />
-							)}
+							<Image style={styles.profilePic} source={currentUser.image} />
 							<CustomIconButton
 								buttonProps={{
 									style: {
@@ -81,64 +97,26 @@ const Profile: FC<Props> = () => {
 										borderRadius: 25
 									}
 								}}
-								onPress={async () => {
-									await uploadImage()
-								}}
+								onPress={async () => showSnackbar("Coming soon!", "info")}
 								icon={
-									<FontAwesome
-										name="camera"
-										size={24}
+									<Ionicons
+										name="md-person-add-sharp"
+										size={25}
 										color={theme.color.main}
 									/>
 								}
 							/>
 						</View>
 						<Text style={styles.username} numberOfLines={1}>
-							{`${user.firstName} ${user.lastName}`}
+							{`${currentUser.firstName} ${currentUser.lastName}`}
 						</Text>
 						<Text style={styles.userBio} numberOfLines={2}>
 							{user.bio}
 						</Text>
-						<View style={styles.actionsContainer}>
-							<CustomIconButton
-								icon={
-									<FontAwesome5
-										name="door-open"
-										size={24}
-										color={theme.color.main}
-									/>
-								}
-								buttonProps={{
-									style: {
-										backgroundColor: "rgba(255,255,255,0.7)",
-										marginRight: 15
-									}
-								}}
-								onPress={async () => await logout()}
-							/>
-							<CustomIconButton
-								icon={
-									<FontAwesome5
-										name="user-edit"
-										size={24}
-										color={theme.color.main}
-									/>
-								}
-								buttonProps={{
-									style: {
-										backgroundColor: "rgba(255,255,255,0.7)",
-										marginLeft: 15
-									}
-								}}
-								onPress={async () => {}}
-							/>
-						</View>
 					</View>
 					<Divider style={styles.divider} />
 					<View style={styles.postList}>
-						{isUploading ? (
-							<ActivityIndicator color="black" size="large" />
-						) : doesUserHavePosts ? (
+						{doesUserHavePosts ? (
 							userPosts.map((post) => <Post key={post.id} postContent={post} />)
 						) : (
 							<Text>No posts yet!</Text>
@@ -182,11 +160,6 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		color: theme.text.secondary
 	},
-	actionsContainer: {
-		flexDirection: "row",
-		justifyContent: "space-evenly",
-		marginTop: 25
-	},
 	divider: {
 		width: "90%",
 		height: 0.5,
@@ -200,4 +173,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default Profile
+export default PostProfile

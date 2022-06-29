@@ -15,9 +15,3 @@ $ yarn dev
 - Go to backend project and run it
 - Look at CLI & take IP address that starts with 192.xxx.xxx.xxx
 - Go to `axios.ts` and change `BACKEND_IP` to your IP
-
-## How to get IP
-
-- Open CMD
-- Type `ipconfig`
-- Get IP that starts with 192

@@ -1,73 +1,82 @@
 {
-  "name": "buycott",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "dev": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
-    "format": "yarn prettier --write",
-    "lint": "eslint --ext tsx --max-warnings=10 src",
-    "postinstall": "husky install"
-  },
-  "dependencies": {
-    "@react-navigation/bottom-tabs": "^6.3.1",
-    "@react-navigation/native": "^6.0.10",
-    "@react-navigation/native-stack": "^6.6.1",
-    "axios": "^0.27.2",
-    "expo": "~44.0.0",
-    "expo-barcode-scanner": "^11.2.1",
-    "expo-image-picker": "~12.0.1",
-    "expo-status-bar": "~1.2.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^12.4.1",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-native": "0.64.3",
-    "react-native-element-dropdown": "^2.0.0",
-    "react-native-paper": "^4.12.1",
-    "react-native-safe-area-context": "3.3.2",
-    "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.1",
-    "react-query": "^3.39.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/eslint-parser": "^7.5.4",
-    "@types/react": "^17.0.21",
-    "@types/react-native": "~0.64.12",
-    "@typescript-eslint/eslint-plugin": "^5.24.0",
-    "@typescript-eslint/parser": "^5.24.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-airbnb": "^5.0.0",
-    "babel-preset-react-native": "^4.0.1",
-    "eslint": "^8.15.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-flowtype": "^8.0.3",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.5.0",
-    "eslint-plugin-react-native": "^4.0.0",
-    "eslint-watch": "^8.0.0",
-    "pre-commit": "^1.2.2",
-    "prettier": "^2.6.2",
-    "prettier-eslint": "^15.0.0",
-    "typescript": "~4.3.5"
-  },
-  "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
-  },
-  "lint-staged": {
-    "src/**/*.tsx": [
-      "yarn format",
-      "yarn lint"
-    ]
-  },
-  "private": true
+	"name": "buycott",
+	"version": "1.0.0",
+	"main": "node_modules/expo/AppEntry.js",
+	"scripts": {
+		"dev": "expo start",
+		"android": "expo start --android",
+		"ios": "expo start --ios",
+		"web": "expo start --web",
+		"eject": "expo eject",
+		"format": "yarn prettier --write",
+		"lint": "eslint --ext tsx --max-warnings=10 src",
+		"postinstall": "husky install"
+	},
+	"dependencies": {
+		"@react-native-async-storage/async-storage": "~1.15.0",
+		"@react-navigation/bottom-tabs": "^6.3.1",
+		"@react-navigation/native": "^6.0.10",
+		"@react-navigation/native-stack": "^6.6.1",
+		"axios": "^0.27.2",
+		"expo": "~44.0.0",
+		"expo-barcode-scanner": "^11.2.1",
+		"expo-camera": "~12.1.2",
+		"expo-image-picker": "~12.0.1",
+		"expo-permissions": "~13.1.0",
+		"expo-status-bar": "~1.2.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^12.4.1",
+		"react": "17.0.1",
+		"react-dom": "17.0.1",
+		"react-native": "0.64.3",
+		"react-native-element-dropdown": "^2.0.0",
+		"react-native-keyboard-aware-scroll-view": "^0.9.5",
+		"react-native-paper": "^4.12.1",
+		"react-native-safe-area-context": "3.3.2",
+		"react-native-screens": "~3.10.1",
+		"react-native-smart-tip": "^2.3.0",
+		"react-native-virtualized-view": "^1.0.0",
+		"react-native-web": "0.17.1",
+		"react-query": "^3.39.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.9",
+		"@babel/eslint-parser": "^7.5.4",
+		"@types/react": "^17.0.21",
+		"@types/react-native": "~0.64.12",
+		"@typescript-eslint/eslint-plugin": "^5.24.0",
+		"@typescript-eslint/parser": "^5.24.0",
+		"babel-core": "^6.26.3",
+		"babel-preset-airbnb": "^5.0.0",
+		"babel-preset-react-native": "^4.0.1",
+		"eslint": "^8.15.0",
+		"eslint-config-airbnb": "^19.0.4",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-flowtype": "^8.0.3",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-prettier": "^4.0.0",
+		"eslint-plugin-react": "^7.29.4",
+		"eslint-plugin-react-hooks": "^4.5.0",
+		"eslint-plugin-react-native": "^4.0.0",
+		"eslint-watch": "^8.0.0",
+		"pre-commit": "^1.2.2",
+		"prettier": "^2.6.2",
+		"prettier-eslint": "^15.0.0",
+		"typescript": "~4.3.5"
+	},
+	"resolutions": {
+		"@types/react": "17.0.2",
+		"@types/react-dom": "17.0.2"
+	},
+	"lint-staged": {
+		"src/**/*.tsx": [
+			"yarn format",
+			"yarn lint"
+		]
+	},
+	"react-native": {
+		"os": "react-native-os"
+	},
+	"private": true
 }

@@ -1,14 +1,13 @@
-import { AntDesign, Ionicons } from "@expo/vector-icons"
+import { Entypo, Ionicons, FontAwesome5, FontAwesome } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Image, StyleSheet, View } from "react-native"
-import HomeImage from "../Assets/Home/home.png"
-import ScannerImage from "../Assets/Scanner/outlier.png"
+import HomeImage from "../Assets/home.png"
 import Scanner from "../Screens/BarcodeScanner/Scanner"
 import Search from "../Screens/Filter/Filter"
 import Home from "../Screens/Home/Home"
 import Profile from "../Screens/Profile/Profile"
+import { IS_ANDROID } from "../utils/constants"
 import theme from "../utils/theme"
-
 const Tabs = createBottomTabNavigator()
 
 export default function BottomTab() {
@@ -19,7 +18,9 @@ export default function BottomTab() {
 				tabBarStyle: {
 					backgroundColor: theme.color.main,
 					height: 60,
-					padding: 20
+					padding: 20,
+					paddingBottom: IS_ANDROID ? 25 : 20,
+					justifyContent: "space-between"
 				},
 				tabBarShowLabel: false
 			}}
@@ -37,13 +38,35 @@ export default function BottomTab() {
 				}}
 			/>
 			<Tabs.Screen
+				name="Campaigns"
+				component={Home}
+				options={{
+					headerShown: false,
+					tabBarIcon: ({ focused }) => (
+						<View style={focused ? styles.focused : undefined}>
+							<FontAwesome5
+								name="hands-helping"
+								style={styles.icon}
+								color="white"
+								size={25}
+							/>
+						</View>
+					)
+				}}
+			/>
+			<Tabs.Screen
 				name="Scanner"
 				component={Scanner}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
 						<View style={focused ? styles.focused : undefined}>
-							<Image source={ScannerImage} style={styles.icon} />
+							<Entypo
+								name="camera"
+								style={styles.icon}
+								color="white"
+								size={25}
+							/>
 						</View>
 					)
 				}}
@@ -55,8 +78,8 @@ export default function BottomTab() {
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
 						<View style={focused ? styles.focused : undefined}>
-							<AntDesign
-								name="bells"
+							<FontAwesome
+								name="bell"
 								style={styles.icon}
 								color="white"
 								size={25}
@@ -65,6 +88,7 @@ export default function BottomTab() {
 					)
 				}}
 			/>
+
 			<Tabs.Screen
 				name="Profile"
 				component={Profile}
@@ -92,5 +116,9 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 2,
 		padding: 4
 	},
-	icon: { width: 25, height: 25 }
+	icon: { width: 25, height: 25 },
+	campaignsIcon: {
+		width: 30,
+		height: 30
+	}
 })

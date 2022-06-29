@@ -1,39 +1,42 @@
 {
-  "expo": {
-    "name": "Buycott",
-    "slug": "Buycott",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./src/Assets/icon.png",
-    "splash": {
-      "image": "./src/Assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/Assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
-    },
-    "web": {
-      "favicon": "./src/Assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you share them with your friends.",
-          "cameraPermission": "The app accesses your camera to let you upload photos."
-        }
-      ]
-    ]
-  }
+	"expo": {
+		"name": "SteerClear",
+		"slug": "SteerClear",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"platforms": ["ios", "android"],
+		"icon": "./src/Assets/icon.png",
+		"splash": {
+			"image": "./src/Assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"infoPlist": {
+				"NSCameraUsageDescription": "This app uses the camera to let user scan barcodes."
+			}
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./src/Assets/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			}
+		},
+		"web": {
+			"favicon": "./src/Assets/favicon.png"
+		},
+		"plugins": [
+			[
+				"expo-image-picker",
+				{
+					"photosPermission": "The app accesses your photos to let you share them with your friends."
+				}
+			]
+		]
+	}
 }

@@ -6,21 +6,23 @@ import { getErrorMessage } from "../../utils/getErrorMessage"
 import getValidImage from "../../utils/getValidImage"
 import { showSnackbar } from "../../utils/showSnackbar"
 
-const POSTS_FEED = `post/feed`
-
-export const useFeed = () => {
+export const useUserPosts = (postUserId: string) => {
 	const { user } = useAuth()
 	const {
-		data: posts,
+		data,
 		isLoading,
-		refetch: fetchPosts,
-		error
+		error,
+		refetch: refetchUserPosts
 	} = useQuery(
-		["fetchPosts", user.id],
+		["fetchUserPosts", postUserId, user.id],
 		async () => {
 			try {
-				const res = await request.get(`${POSTS_FEED}?userId=${user.id}`)
-				const posts = res.data.data
+				const response = await request.get(
+					`post/personal-posts?userId=${user.id}&postUserId=${
+						user.id !== postUserId ? `${postUserId}` : ""
+					}`
+				)
+				const posts = response.data.data
 				return posts.map((post: any) => {
 					return {
 						...post,
@@ -39,11 +41,11 @@ export const useFeed = () => {
 			}
 		},
 		{
-			refetchOnWindowFocus: false,
-			refetchOnMount: "always",
-			enabled: !!user.id
+			enabled: !!postUserId && !!user.id
 		}
 	)
+
 	if (error) showSnackbar(error + "", "error")
-	return { posts, isLoading, fetchPosts }
+
+	return { isFetchingPosts: isLoading, userPosts: data, refetchUserPosts }
 }
