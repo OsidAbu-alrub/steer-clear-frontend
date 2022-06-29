@@ -18,7 +18,8 @@
 		"ios": {
 			"supportsTablet": true,
 			"infoPlist": {
-				"NSCameraUsageDescription": "This app uses the camera to let user scan barcodes."
+				"NSCameraUsageDescription": "This app uses the camera to let user scan barcodes.",
+				"NSLocationWhenInUseUsageDescription ": "This app uses your location to figure out calculations"
 			}
 		},
 		"android": {

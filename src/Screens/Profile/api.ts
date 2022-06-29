@@ -49,3 +49,78 @@ export const useUserPosts = (postUserId: string) => {
 
 	return { isFetchingPosts: isLoading, userPosts: data, refetchUserPosts }
 }
+
+export const useIsFollowing = (postUserId: string) => {
+	const { user } = useAuth()
+	const { data, isLoading, error, refetch } = useQuery(
+		["isFollowingPostUser", postUserId, user.id],
+		async () => {
+			try {
+				const response = await request.post(`user/is-following`, {
+					followerId: user.id,
+					followedId: postUserId
+				})
+
+				const isFollowing = response.data.data
+				return isFollowing
+			} catch (e: any) {
+				showSnackbar(getErrorMessage(e), "error")
+			}
+		},
+		{
+			enabled: !!postUserId && !!user.id
+		}
+	)
+
+	if (error) showSnackbar(error + "", "error")
+
+	return {
+		isFetchingFollowStatus: isLoading,
+		followStatus: data,
+		refetchFollowStatus: refetch
+	}
+}
+
+export const useFollow = (postUserId: string) => {
+	const { user } = useAuth()
+	const { isLoading: isFollowing, refetch: follow } = useQuery(
+		["followUser", postUserId, user.id],
+		async () => {
+			try {
+				await request.post(`user/follow`, {
+					followerId: user.id,
+					followedId: postUserId
+				})
+			} catch (e: any) {
+				showSnackbar(getErrorMessage(e), "error")
+			}
+		},
+		{
+			enabled: false
+		}
+	)
+
+	const { isLoading: isUnfollowing, refetch: unfollow } = useQuery(
+		["unfollowUser", postUserId, user.id],
+		async () => {
+			try {
+				await request.post(`user/unfollow`, {
+					followerId: user.id,
+					followedId: postUserId
+				})
+			} catch (e: any) {
+				showSnackbar(getErrorMessage(e), "error")
+			}
+		},
+		{
+			enabled: false
+		}
+	)
+
+	return {
+		isFollowing,
+		follow,
+		unfollow,
+		isUnfollowing
+	}
+}

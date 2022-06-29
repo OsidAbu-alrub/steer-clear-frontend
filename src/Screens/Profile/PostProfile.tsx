@@ -21,9 +21,8 @@ import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import { useRefetchOnFocus } from "../../Hooks/useRefetchOnFocus"
 import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
-import { showSnackbar } from "../../utils/showSnackbar"
 import theme from "../../utils/theme"
-import { useUserPosts } from "./api"
+import { useFollow, useIsFollowing, useUserPosts } from "./api"
 
 interface Props {}
 
@@ -35,11 +34,23 @@ const PostProfile: FC<Props> = () => {
 	const { userPosts, isFetchingPosts, refetchUserPosts } = useUserPosts(
 		currentUser.id
 	)
-	const isRefetching = useRefetchOnFocus(refetchUserPosts)
-	const [isRefreshing, handleRefresh] = useRefresh(refetchUserPosts)
+	const { isFetchingFollowStatus, followStatus, refetchFollowStatus } =
+		useIsFollowing(currentUser.id)
+	const isRefetchingUserPosts = useRefetchOnFocus(refetchUserPosts)
+	const isRefetchingFollowingStatus = useRefetchOnFocus(refetchFollowStatus)
+	const { follow, unfollow } = useFollow(currentUser.id)
+	const [isRefreshing, handleRefresh] = useRefresh(async () => {
+		await refetchUserPosts()
+		await refetchFollowStatus()
+	})
 	const doesUserHavePosts = userPosts && userPosts.length > 0
 
-	if (isFetchingPosts || isRefetching)
+	if (
+		isFetchingPosts ||
+		isRefetchingUserPosts ||
+		isFetchingFollowStatus ||
+		isRefetchingFollowingStatus
+	)
 		return (
 			<>
 				<AppHeader />
@@ -54,6 +65,16 @@ const PostProfile: FC<Props> = () => {
 				</View>
 			</>
 		)
+
+	const followIcon = followStatus ? (
+		<Ionicons
+			name="md-person-remove-sharp"
+			size={30}
+			color={theme.color.main}
+		/>
+	) : (
+		<Ionicons name="md-person-add-sharp" size={30} color={theme.color.main} />
+	)
 
 	return (
 		<>
@@ -97,14 +118,11 @@ const PostProfile: FC<Props> = () => {
 										borderRadius: 25
 									}
 								}}
-								onPress={async () => showSnackbar("Coming soon!", "info")}
-								icon={
-									<Ionicons
-										name="md-person-add-sharp"
-										size={25}
-										color={theme.color.main}
-									/>
-								}
+								onPress={async () => {
+									!followStatus ? await follow() : await unfollow()
+									await refetchFollowStatus()
+								}}
+								icon={followIcon}
 							/>
 						</View>
 						<Text style={styles.username} numberOfLines={1}>

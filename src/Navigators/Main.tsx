@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import AddProduct from "../Screens/BarcodeScanner/AddProduct"
-import Search from "../Screens/Filter/Filter"
+import Search from "../Screens/Search/Search"
 import Profile from "../Screens/Profile/Profile"
 import CreatePost from "../Screens/CreatePost/CreatePost"
 import BottomTab from "./BottomTab"

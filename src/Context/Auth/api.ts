@@ -6,6 +6,8 @@ import getValidImage from "../../utils/getValidImage"
 import { showSnackbar } from "../../utils/showSnackbar"
 import { Credentials, User } from "./Auth"
 import { getJwtTokenFromHeaders } from "./utils"
+import * as Location from "expo-location"
+import { getContinentName } from "@brixtol/country-continent"
 
 export const USER_LOGIN = `user/login`
 export const FETCH_USER = `user/find`
@@ -33,6 +35,33 @@ export const fetchUserById = async (userId: string) => {
 		} as User
 	} catch (e: any) {
 		showSnackbar(getErrorMessage(e), "error")
+	}
+}
+
+export const getUserContinent = async () => {
+	try {
+		const { status } = await Location.requestForegroundPermissionsAsync()
+		if (status !== "granted") {
+			showSnackbar("Permission to access location was denied", "error")
+			return
+		}
+		const {
+			coords: { latitude, longitude }
+		} = await Location.getCurrentPositionAsync({})
+		const countryCodeResponse = await request.get(
+			`http://api.geonames.org/countryCodeJSON?lat=${latitude}&lng=${longitude}&username=osid`
+		)
+
+		const countryCode = countryCodeResponse.data.countryCode
+		const continent = getContinentName(countryCode)
+
+		const continentResponse = await request.post("continent/retrieve-first", {
+			name: continent
+		})
+
+		return continentResponse.data.data.id
+	} catch (e: any) {
+		showSnackbar("Error getting continent", "error")
 	}
 }
 

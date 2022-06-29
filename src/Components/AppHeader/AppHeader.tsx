@@ -69,7 +69,16 @@ const AppHeader: FC<Props> = (props) => {
 					props.reverseTitleAndActions && styles.reverseTitleAndActions
 				]}
 			>
-				<Text style={styles.appName}>SteerClear</Text>
+				<Text
+					style={[
+						styles.appName,
+						props.reverseTitleAndActions
+							? { marginRight: 10 }
+							: { marginLeft: 10 }
+					]}
+				>
+					SteerClear
+				</Text>
 				<View style={styles.iconContainer}>{actions}</View>
 			</View>
 		</>

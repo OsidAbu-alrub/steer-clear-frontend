@@ -9,6 +9,7 @@ export interface User {
 	email: string
 	password: string
 	bio: string
+	continentId: string
 	image: ImageSourcePropType
 }
 
@@ -31,6 +32,7 @@ export default createContext<AuthContextType>({
 		lastName: "",
 		password: "",
 		phoneNumber: "",
+		continentId: "",
 		image: {}
 	},
 	login: () => Promise.resolve(),

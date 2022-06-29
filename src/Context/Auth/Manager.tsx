@@ -2,8 +2,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import React, { ReactNode, useState } from "react"
 import { JWT_COOKIE_KEY, USER_LOCAL_STORAGE_KEY } from "../../utils/constants"
-import { fetchUser, fetchUserById, logoutAsync } from "./api"
-import Auth, { AuthContextType, Credentials } from "./Auth"
+import { fetchUser, fetchUserById, getUserContinent, logoutAsync } from "./api"
+import Auth, { AuthContextType, Credentials, User } from "./Auth"
 
 interface Props {
 	children: ReactNode
@@ -22,9 +22,14 @@ const AuthManager = ({ children }: Props) => {
 	async function login(user: Credentials, isHashed = false) {
 		const userCreds = await fetchUser(user, isHashed)
 		if (userCreds) {
-			const stringifiedUserCreds = JSON.stringify(userCreds)
+			const userWithContinent: User = {
+				...userCreds,
+				continentId: await getUserContinent()
+			}
+
+			const stringifiedUserCreds = JSON.stringify(userWithContinent)
 			await AsyncStorage.setItem(USER_LOCAL_STORAGE_KEY, stringifiedUserCreds)
-			setUser(userCreds)
+			setUser(userWithContinent)
 		}
 	}
 
