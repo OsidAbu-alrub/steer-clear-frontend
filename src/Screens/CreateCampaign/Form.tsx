@@ -13,14 +13,14 @@ import { useAuth } from "../../Context/Auth/useAuth"
 import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import { showSnackbar } from "../../utils/showSnackbar"
 import theme from "../../utils/theme"
-import { useCreatePost } from "./api"
+import { useCreateCampaign } from "./api"
 
 export default function Form() {
-	const { handleCreatePost } = useCreatePost()
+	const { handleCreateCampaign } = useCreateCampaign()
 	const { navigate, goBack } = useAppNavigation()
 	const { user } = useAuth()
-	const [postTitle, setPostTitle] = useState("")
-	const [postBody, setPostBody] = useState("")
+	const [campaignTitle, setCampaignTitle] = useState("")
+	const [campaignBody, setCampaignBody] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
 
 	return (
@@ -33,7 +33,7 @@ export default function Form() {
 					<Text
 						style={{
 							fontWeight: "bold",
-							fontSize: 13,
+							fontSize: 14,
 							textDecorationLine: "underline",
 							color: theme.text.secondary
 						}}
@@ -44,9 +44,9 @@ export default function Form() {
 				<CustomInput
 					fullwidth
 					style={styles.content}
-					placeholder="Post title"
-					value={postTitle}
-					onChangeText={(input) => setPostTitle(input)}
+					placeholder="Campaign title"
+					value={campaignTitle}
+					onChangeText={(input) => setCampaignTitle(input)}
 				/>
 				<CustomInput
 					fullwidth
@@ -54,29 +54,29 @@ export default function Form() {
 					multiline
 					textAlignVertical="top"
 					numberOfLines={10}
-					placeholder="Post content"
-					value={postBody}
-					onChangeText={(input) => setPostBody(input)}
+					placeholder="Campaign content"
+					value={campaignBody}
+					onChangeText={(input) => setCampaignBody(input)}
 					onContentSizeChange={() => {}}
 				/>
 			</View>
 			<CustomButton
 				onPress={async () => {
-					if (!postTitle.length || !postBody.length) {
+					if (!campaignTitle.length || !campaignBody.length) {
 						showSnackbar("Must fill out all fields")
 						return
 					}
 					Keyboard.dismiss()
 					setIsLoading(true)
-					await handleCreatePost(user.id, postTitle, postBody)
-					showSnackbar("Post created successfully")
+					await handleCreateCampaign(user.id, campaignTitle, campaignBody)
+					showSnackbar("Campaign created successfully")
 					setIsLoading(false)
-					setPostBody("")
-					setPostTitle("")
+					setCampaignBody("")
+					setCampaignTitle("")
 					goBack()
 				}}
 				style={styles.button}
-				title={!isLoading ? "Post" : "Creating post..."}
+				title={!isLoading ? "Campaign" : "Creating Campaign..."}
 				disabled={isLoading}
 			/>
 		</View>

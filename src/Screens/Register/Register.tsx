@@ -1,13 +1,7 @@
 import { useRoute } from "@react-navigation/native"
 import { useState } from "react"
-import {
-	ActivityIndicator,
-	Image,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View
-} from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { ActivityIndicator } from "react-native-paper"
 import Sticker from "../../Assets/sticker.png"
 import CustomButton from "../../Components/CustomButton/CustomButton"
 import CustomInput from "../../Components/CustomInput/CustomInput"
@@ -99,7 +93,7 @@ function Register() {
 						disabled={isLoading}
 					>
 						{isLoading ? (
-							<ActivityIndicator color="black" />
+							<ActivityIndicator color={theme.color.secondary} size="small" />
 						) : (
 							<Text style={{ color: "white" }}>Register</Text>
 						)}

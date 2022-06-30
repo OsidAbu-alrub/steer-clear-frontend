@@ -13,7 +13,7 @@ import { IS_ANDROID, STATUS_BAR_HEIGHT } from "../../utils/constants"
 import theme from "../../utils/theme"
 import PostImage from "./../../Assets/post.png"
 import SearchImage from "./../../Assets/search.png"
-
+import { AntDesign } from "@expo/vector-icons"
 interface Action {
 	id: string
 	action: ReactNode
@@ -29,7 +29,10 @@ const AppHeader: FC<Props> = (props) => {
 			id: "Search",
 			action: (
 				<TouchableOpacity onPress={() => navigate("Search")}>
-					<Image style={styles.searchIcon} source={SearchImage} />
+					<Image
+						style={[styles.searchIcon, { width: 25, height: 25 }]}
+						source={SearchImage}
+					/>
 				</TouchableOpacity>
 			)
 		},
@@ -37,7 +40,23 @@ const AppHeader: FC<Props> = (props) => {
 			id: "Create post",
 			action: (
 				<TouchableOpacity onPress={() => navigate("CreatePost")}>
-					<Image style={styles.postIcon} source={PostImage} />
+					<Image
+						style={[styles.postIcon, { position: "relative", bottom: -1 }]}
+						source={PostImage}
+					/>
+				</TouchableOpacity>
+			)
+		},
+		{
+			id: "Create campaign",
+			action: (
+				<TouchableOpacity onPress={() => navigate("CreateCampaign")}>
+					<AntDesign
+						style={[styles.postIcon, { position: "relative", bottom: -1 }]}
+						name="pluscircle"
+						size={24}
+						color="white"
+					/>
 				</TouchableOpacity>
 			)
 		}

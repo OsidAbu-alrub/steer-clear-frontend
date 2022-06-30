@@ -9,10 +9,12 @@ import ProductInfo from "../Screens/BarcodeScanner/ProductInfo"
 import Scanner from "../Screens/BarcodeScanner/Scanner"
 import { User } from "../Components/Post/api"
 import PostProfile from "../Screens/Profile/PostProfile"
+import CreateCampaign from "../Screens/CreateCampaign/CreateCampaign"
 
 export type MainRootStack = {
 	BottomTab: undefined
 	CreatePost: undefined
+	CreateCampaign: undefined
 	Search: undefined
 	Register: undefined
 	BarcodeScanner: undefined
@@ -37,6 +39,11 @@ export default function Main() {
 			<Stack.Screen
 				name="CreatePost"
 				component={CreatePost}
+				options={{ headerShown: false }}
+			/>
+			<Stack.Screen
+				name="CreateCampaign"
+				component={CreateCampaign}
 				options={{ headerShown: false }}
 			/>
 			<Stack.Screen

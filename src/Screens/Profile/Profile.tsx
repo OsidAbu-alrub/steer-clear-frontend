@@ -1,5 +1,5 @@
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons"
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Image, RefreshControl, StyleSheet, Text, View } from "react-native"
 import { ActivityIndicator, Divider } from "react-native-paper"
 import AppHeader from "../../Components/AppHeader/AppHeader"
@@ -13,25 +13,39 @@ import { useRefetchOnFocus } from "../../Hooks/useRefetchOnFocus"
 import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
 import theme from "../../utils/theme"
-import { useUserPosts } from "./api"
+import { useUserCampaigns, useUserPosts } from "./api"
+import { AntDesign } from "@expo/vector-icons"
+import { showSnackbar } from "../../utils/showSnackbar"
+import CampaignCard from "../../Components/Campaign/CampaignCard"
 
 interface Props {}
 
 const Profile: FC<Props> = () => {
 	const { user, logout, refetchUser } = useAuth()
+	const [isViewingPosts, setIsViewingPosts] = useState(true)
 	const { uploadImage, isUploading } = useImagePicker({
 		userId: user.id,
 		uploadUrl: "user/upload-image"
 	})
 	const { userPosts, isFetchingPosts, refetchUserPosts } = useUserPosts(user.id)
-	const isRefetching = useRefetchOnFocus(refetchUserPosts)
+	const { campaigns, isFetchingCampaigns, refetchUserCampaings } =
+		useUserCampaigns(user.id)
+	const isRefetchingUserPosts = useRefetchOnFocus(refetchUserPosts)
+	const isRefetchingUserCampaigns = useRefetchOnFocus(refetchUserCampaings)
 	const [isRefreshing, handleRefresh] = useRefresh(async () => {
 		await refetchUser()
 		await refetchUserPosts()
+		await refetchUserCampaings()
 	})
 	const doesUserHavePosts = userPosts && userPosts.length > 0
+	const doesUserHaveCampaigns = campaigns && campaigns.length > 0
 
-	if (isFetchingPosts || isRefetching)
+	if (
+		isFetchingPosts ||
+		isRefetchingUserPosts ||
+		isFetchingCampaigns ||
+		isRefetchingUserCampaigns
+	)
 		return (
 			<>
 				<AppHeader />
@@ -127,10 +141,32 @@ const Profile: FC<Props> = () => {
 								buttonProps={{
 									style: {
 										backgroundColor: "rgba(255,255,255,0.7)",
+										marginHorizontal: 15
+									}
+								}}
+								onPress={async () => {
+									showSnackbar("Coming soon!", "info")
+								}}
+							/>
+							<CustomIconButton
+								icon={
+									<AntDesign name="swap" size={30} color={theme.color.main} />
+								}
+								buttonProps={{
+									style: {
+										backgroundColor: "rgba(255,255,255,0.7)",
 										marginLeft: 15
 									}
 								}}
-								onPress={async () => {}}
+								onPress={async () => {
+									setIsViewingPosts((prev) => {
+										showSnackbar(
+											!prev ? "Viewing posts" : "Viewing campaigns",
+											"info"
+										)
+										return !prev
+									})
+								}}
 							/>
 						</View>
 					</View>
@@ -138,10 +174,24 @@ const Profile: FC<Props> = () => {
 					<View style={styles.postList}>
 						{isUploading ? (
 							<ActivityIndicator color="black" size="large" />
-						) : doesUserHavePosts ? (
-							userPosts.map((post) => <Post key={post.id} postContent={post} />)
+						) : isViewingPosts ? (
+							<>
+								{doesUserHavePosts ? (
+									userPosts.map((post) => (
+										<Post key={post.id} postContent={post} />
+									))
+								) : (
+									<Text style={{ textAlign: "center" }}>No posts yet!</Text>
+								)}
+							</>
 						) : (
-							<Text>No posts yet!</Text>
+							<>
+								{doesUserHaveCampaigns ? (
+									campaigns.map((c) => <CampaignCard key={c.id} campaign={c} />)
+								) : (
+									<Text style={{ textAlign: "center" }}>No campaigns yet!</Text>
+								)}
+							</>
 						)}
 					</View>
 				</View>

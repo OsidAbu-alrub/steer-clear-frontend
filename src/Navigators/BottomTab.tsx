@@ -1,10 +1,11 @@
-import { Entypo, Ionicons, FontAwesome5, FontAwesome } from "@expo/vector-icons"
+import { Entypo, FontAwesome, FontAwesome5, Ionicons } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Image, StyleSheet, View } from "react-native"
 import HomeImage from "../Assets/home.png"
 import Scanner from "../Screens/BarcodeScanner/Scanner"
-import Search from "../Screens/Search/Search"
+import CampaignPage from "../Screens/CampaignPage/CampaignPage"
 import Home from "../Screens/Home/Home"
+import NotificationPage from "../Screens/NotificationPage/NotificationPage"
 import Profile from "../Screens/Profile/Profile"
 import { IS_ANDROID } from "../utils/constants"
 import theme from "../utils/theme"
@@ -39,7 +40,7 @@ export default function BottomTab() {
 			/>
 			<Tabs.Screen
 				name="Campaigns"
-				component={Home}
+				component={CampaignPage}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
@@ -73,7 +74,7 @@ export default function BottomTab() {
 			/>
 			<Tabs.Screen
 				name="Notifications"
-				component={Search}
+				component={NotificationPage}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (

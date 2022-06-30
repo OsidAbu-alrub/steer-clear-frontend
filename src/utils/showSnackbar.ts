@@ -11,7 +11,7 @@ const VARIANT_TO_COLOR: { [key in SnackbarVariant]: string } = {
 const VARIANT_TEXT_COLOR: { [key in SnackbarVariant]: string } = {
 	success: theme.color.secondary,
 	error: theme.color.secondary,
-	info: "black"
+	info: theme.text.secondary
 }
 
 export const showSnackbar = (

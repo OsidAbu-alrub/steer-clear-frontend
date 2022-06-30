@@ -1,5 +1,6 @@
 import { useQuery } from "react-query"
 import request from "../../axios"
+import { Campaign } from "../../Components/Campaign/api"
 import { PostContent } from "../../Components/Post/api"
 import { useAuth } from "../../Context/Auth/useAuth"
 import { getErrorMessage } from "../../utils/getErrorMessage"
@@ -11,7 +12,6 @@ export const useUserPosts = (postUserId: string) => {
 	const {
 		data,
 		isLoading,
-		error,
 		refetch: refetchUserPosts
 	} = useQuery(
 		["fetchUserPosts", postUserId, user.id],
@@ -37,7 +37,7 @@ export const useUserPosts = (postUserId: string) => {
 					}
 				}) as PostContent[]
 			} catch (e: any) {
-				throw getErrorMessage(e)
+				showSnackbar(getErrorMessage(e), "error")
 			}
 		},
 		{
@@ -45,9 +45,49 @@ export const useUserPosts = (postUserId: string) => {
 		}
 	)
 
-	if (error) showSnackbar(error + "", "error")
-
 	return { isFetchingPosts: isLoading, userPosts: data, refetchUserPosts }
+}
+
+export const useUserCampaigns = (campaignUserId: string) => {
+	const { user } = useAuth()
+	const {
+		data,
+		isLoading,
+		refetch: refetchUserCampaings
+	} = useQuery(
+		["fetchUserCampaigns", campaignUserId, user.id],
+		async () => {
+			try {
+				const response = await request.post(`campaign/retrieve`, {
+					include: {
+						user: true
+					},
+					userId: campaignUserId !== user.id ? campaignUserId : user.id
+				})
+				const campaigns = response.data.data
+				return campaigns.map((c: any) => {
+					return {
+						...c,
+						user: {
+							...c.user,
+							image: getValidImage(c.user.image)
+						}
+					}
+				}) as Campaign[]
+			} catch (e: any) {
+				showSnackbar(getErrorMessage(e), "error")
+			}
+		},
+		{
+			enabled: !!campaignUserId && !!user.id
+		}
+	)
+
+	return {
+		isFetchingCampaigns: isLoading,
+		campaigns: data,
+		refetchUserCampaings
+	}
 }
 
 export const useIsFollowing = (postUserId: string) => {

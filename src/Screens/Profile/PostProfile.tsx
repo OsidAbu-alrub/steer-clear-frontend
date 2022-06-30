@@ -1,6 +1,6 @@
 import { AntDesign, Ionicons } from "@expo/vector-icons"
 import { useRoute } from "@react-navigation/native"
-import { FC } from "react"
+import { FC, useState } from "react"
 import {
 	Image,
 	RefreshControl,
@@ -11,6 +11,7 @@ import {
 } from "react-native"
 import { Divider } from "react-native-paper"
 import AppHeader from "../../Components/AppHeader/AppHeader"
+import CampaignCard from "../../Components/Campaign/CampaignCard"
 import CustomIconButton from "../../Components/CustomIconButton/CustomIconButton"
 import CustomScrollView from "../../Components/CustomScrollView/CustomScrollView"
 import Loader from "../../Components/Loader/Loader"
@@ -21,8 +22,14 @@ import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import { useRefetchOnFocus } from "../../Hooks/useRefetchOnFocus"
 import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
+import { showSnackbar } from "../../utils/showSnackbar"
 import theme from "../../utils/theme"
-import { useFollow, useIsFollowing, useUserPosts } from "./api"
+import {
+	useFollow,
+	useIsFollowing,
+	useUserCampaigns,
+	useUserPosts
+} from "./api"
 
 interface Props {}
 
@@ -31,9 +38,12 @@ const PostProfile: FC<Props> = () => {
 	const { goBack } = useAppNavigation()
 	const { params } = useRoute()
 	const currentUser = params as User
+	const [isViewingPosts, setIsViewingPosts] = useState(true)
 	const { userPosts, isFetchingPosts, refetchUserPosts } = useUserPosts(
 		currentUser.id
 	)
+	const { campaigns, isFetchingCampaigns, refetchUserCampaings } =
+		useUserCampaigns(currentUser.id)
 	const { isFetchingFollowStatus, followStatus, refetchFollowStatus } =
 		useIsFollowing(currentUser.id)
 	const isRefetchingUserPosts = useRefetchOnFocus(refetchUserPosts)
@@ -41,15 +51,17 @@ const PostProfile: FC<Props> = () => {
 	const { follow, unfollow } = useFollow(currentUser.id)
 	const [isRefreshing, handleRefresh] = useRefresh(async () => {
 		await refetchUserPosts()
-		await refetchFollowStatus()
+		await refetchUserCampaings()
 	})
 	const doesUserHavePosts = userPosts && userPosts.length > 0
+	const doesUserHaveCampaigns = campaigns && campaigns.length > 0
 
 	if (
 		isFetchingPosts ||
 		isRefetchingUserPosts ||
 		isFetchingFollowStatus ||
-		isRefetchingFollowingStatus
+		isRefetchingFollowingStatus ||
+		isFetchingCampaigns
 	)
 		return (
 			<>
@@ -131,13 +143,48 @@ const PostProfile: FC<Props> = () => {
 						<Text style={styles.userBio} numberOfLines={2}>
 							{user.bio}
 						</Text>
+						<View style={styles.actionsContainer}>
+							<CustomIconButton
+								icon={
+									<AntDesign name="swap" size={30} color={theme.color.main} />
+								}
+								buttonProps={{
+									style: {
+										backgroundColor: "rgba(255,255,255,0.7)"
+									}
+								}}
+								onPress={async () => {
+									setIsViewingPosts((prev) => {
+										showSnackbar(
+											!prev ? "Viewing posts" : "Viewing campaigns",
+											"info"
+										)
+										return !prev
+									})
+								}}
+							/>
+						</View>
 					</View>
 					<Divider style={styles.divider} />
 					<View style={styles.postList}>
-						{doesUserHavePosts ? (
-							userPosts.map((post) => <Post key={post.id} postContent={post} />)
+						{isViewingPosts ? (
+							<>
+								{doesUserHavePosts ? (
+									userPosts.map((post) => (
+										<Post key={post.id} postContent={post} />
+									))
+								) : (
+									<Text style={{ textAlign: "center" }}>No posts yet!</Text>
+								)}
+							</>
 						) : (
-							<Text>No posts yet!</Text>
+							<>
+								{doesUserHaveCampaigns ? (
+									campaigns.map((c) => <CampaignCard key={c.id} campaign={c} />)
+								) : (
+									<Text style={{ textAlign: "center" }}>No campaigns yet!</Text>
+								)}
+							</>
 						)}
 					</View>
 				</View>
@@ -188,6 +235,11 @@ const styles = StyleSheet.create({
 		minHeight: "100%",
 		width: SCREEN_WIDTH,
 		paddingVertical: 25
+	},
+	actionsContainer: {
+		flexDirection: "row",
+		justifyContent: "space-evenly",
+		marginTop: 25
 	}
 })
 
