@@ -4,13 +4,15 @@ import React, { useCallback, useState } from "react"
 import { RefreshControl, StyleSheet, View } from "react-native"
 import AppHeader from "../../Components/AppHeader/AppHeader"
 import CustomScrollView from "../../Components/CustomScrollView/CustomScrollView"
+import Loader from "../../Components/Loader/Loader"
 import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
+import theme from "../../utils/theme"
 import { useProductScanner } from "./api"
 
 function Scanner() {
 	const [scannedBarcode, setScannedBarcode] = useState("")
-	const [isRefreshing] = useRefresh(async () => {})
+	const [isRefreshing, handleRefresh] = useRefresh(async () => {})
 	useProductScanner(scannedBarcode)
 	useFocusEffect(
 		useCallback(() => {
@@ -19,6 +21,23 @@ function Scanner() {
 		}, [])
 	)
 
+	if (isRefreshing) {
+		return (
+			<>
+				<AppHeader />
+				<View
+					style={{
+						backgroundColor: theme.color.light,
+						minHeight: SCREEN_HEIGHT,
+						minWidth: SCREEN_WIDTH
+					}}
+				>
+					<Loader />
+				</View>
+			</>
+		)
+	}
+
 	return (
 		<>
 			<View>
@@ -26,7 +45,10 @@ function Scanner() {
 			</View>
 			<CustomScrollView
 				style={styles.container}
-				refreshControl={<RefreshControl refreshing={isRefreshing} />}
+				refreshControl={
+					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+				}
+				scrollEnabled={false}
 			>
 				<View style={styles.main}>
 					<BarCodeScanner

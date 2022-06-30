@@ -22,7 +22,7 @@ function NotificationPage() {
 	const isRefetching = useRefetchOnFocus(refetchNotifications)
 	const isThereNotifications = notifications && notifications.length > 0
 
-	if (isFetchingNotifications || isRefetching)
+	if (isFetchingNotifications || isRefetching || isRefreshing)
 		return (
 			<>
 				<AppHeader />
@@ -61,7 +61,9 @@ function NotificationPage() {
 							))}
 						</View>
 					) : (
-						<Text style={{ textAlign: "center" }}>No notifications!</Text>
+						<Text style={{ textAlign: "center", paddingTop: 15 }}>
+							No notifications!
+						</Text>
 					)}
 				</ScrollView>
 			</SafeAreaView>

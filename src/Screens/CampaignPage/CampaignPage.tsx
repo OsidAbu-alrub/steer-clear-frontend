@@ -20,7 +20,7 @@ function CampaignPage() {
 	const isRefetching = useRefetchOnFocus(refetchCampaigns)
 	const isThereCampaigns = campaigns && campaigns.length > 0
 
-	if (isFetchingCampaigns || isRefetching)
+	if (isFetchingCampaigns || isRefetching || isRefreshing)
 		return (
 			<>
 				<AppHeader />
@@ -50,7 +50,7 @@ function CampaignPage() {
 					style={styles.flatList}
 				>
 					{isThereCampaigns
-						? campaigns!.map((campaign) => (
+						? campaigns.map((campaign) => (
 								<CampaignCard campaign={campaign} key={campaign.id} />
 								// eslint-disable-next-line no-mixed-spaces-and-tabs
 						  ))

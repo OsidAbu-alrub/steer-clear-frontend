@@ -61,7 +61,8 @@ const PostProfile: FC<Props> = () => {
 		isRefetchingUserPosts ||
 		isFetchingFollowStatus ||
 		isRefetchingFollowingStatus ||
-		isFetchingCampaigns
+		isFetchingCampaigns ||
+		isRefreshing
 	)
 		return (
 			<>

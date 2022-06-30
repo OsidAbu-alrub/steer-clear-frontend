@@ -20,7 +20,7 @@ function Home() {
 	const isRefetching = useRefetchOnFocus(fetchPosts)
 	const isThereFeed = posts && posts.length > 0
 
-	if (isLoading || isRefetching)
+	if (isLoading || isRefetching || isRefreshing)
 		return (
 			<>
 				<AppHeader />

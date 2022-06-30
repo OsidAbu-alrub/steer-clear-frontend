@@ -1,10 +1,10 @@
+import { AntDesign } from "@expo/vector-icons"
 import { StyleSheet, TouchableOpacity, View } from "react-native"
 import AppHeader from "../../Components/AppHeader/AppHeader"
 import CustomScrollView from "../../Components/CustomScrollView/CustomScrollView"
+import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import theme from "../../utils/theme"
 import Form from "./Form"
-import { AntDesign } from "@expo/vector-icons"
-import { useAppNavigation } from "../../Hooks/useAppNavigation"
 
 export default function CreatePost() {
 	const { goBack } = useAppNavigation()

@@ -1,12 +1,19 @@
 import { AntDesign } from "@expo/vector-icons"
 import { useState } from "react"
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import {
+	RefreshControl,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View
+} from "react-native"
 import { Dropdown } from "react-native-element-dropdown"
 import AppHeader from "../../Components/AppHeader/AppHeader"
 import CustomScrollView from "../../Components/CustomScrollView/CustomScrollView"
 import Loader from "../../Components/Loader/Loader"
 import { useAppNavigation } from "../../Hooks/useAppNavigation"
 import { useRefetchOnFocus } from "../../Hooks/useRefetchOnFocus"
+import useRefresh from "../../Hooks/useRefresh"
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../utils/constants"
 import theme from "../../utils/theme"
 import { Category, useCategories, useProductsByCategory } from "./api"
@@ -18,6 +25,10 @@ function Search() {
 	const { categories, isFetchingCategories, fetchCategories } = useCategories()
 	const { fetchProducts, isFetchingProducts, products } =
 		useProductsByCategory(selectedCategoryId)
+	const [isRefreshing, handleRefresh] = useRefresh(async () => {
+		await fetchCategories()
+		await fetchProducts()
+	})
 	const isRefetchingCategories = useRefetchOnFocus(fetchCategories)
 	const isRefetchingProductsByCategories = useRefetchOnFocus(fetchProducts)
 	const doesCateogryHaveProducts = products && products.length > 0
@@ -26,7 +37,8 @@ function Search() {
 		isFetchingCategories ||
 		isRefetchingCategories ||
 		isRefetchingProductsByCategories ||
-		isFetchingProducts
+		isFetchingProducts ||
+		isRefreshing
 	)
 		return (
 			<>
@@ -58,7 +70,12 @@ function Search() {
 				]}
 				reverseTitleAndActions
 			/>
-			<CustomScrollView style={styles.container}>
+			<CustomScrollView
+				style={styles.container}
+				refreshControl={
+					<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+				}
+			>
 				<View style={styles.dropdownContainer}>
 					<Dropdown
 						style={styles.dropdown}
@@ -78,7 +95,6 @@ function Search() {
 						}
 					/>
 				</View>
-
 				<View style={styles.productsContainer}>
 					{doesCateogryHaveProducts ? (
 						products.map((product) => (

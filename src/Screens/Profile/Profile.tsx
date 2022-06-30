@@ -44,7 +44,8 @@ const Profile: FC<Props> = () => {
 		isFetchingPosts ||
 		isRefetchingUserPosts ||
 		isFetchingCampaigns ||
-		isRefetchingUserCampaigns
+		isRefetchingUserCampaigns ||
+		isRefreshing
 	)
 		return (
 			<>
