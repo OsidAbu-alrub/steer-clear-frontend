@@ -76,7 +76,7 @@ export default function Form() {
 					goBack()
 				}}
 				style={styles.button}
-				title={!isLoading ? "Campaign" : "Creating Campaign..."}
+				title={!isLoading ? "Create campaign" : "Creating campaign..."}
 				disabled={isLoading}
 			/>
 		</View>
